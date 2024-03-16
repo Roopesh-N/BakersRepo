@@ -7,6 +7,11 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
 
+#two lines belongs to sending email
+from django.conf import settings
+from django.core.mail import send_mail
+
+
 # Create your views here.
 
 def LoginView(request):
@@ -43,7 +48,15 @@ def signupView(request):
             epwd=passlib_encryption(password)
             phone=request.POST['PhoneNumber']
             email=request.POST['Email']
-            UserModel.objects.create(firstname=firstname,lastname=lastname,Username=username,password=epwd,PhoneNumber=phone,Email=email)
+            user=UserModel.objects.create(firstname=firstname,lastname=lastname,Username=username,password=epwd,PhoneNumber=phone,Email=email)
+            subject = "welcome to Bakers'App world"
+            message = f'Hi {user.firstname}, thank you for registering in BakersApp.'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [email, ]
+            try:
+                send_mail( subject, message, email_from, recipient_list )
+            except:
+                pass
             messages.success(request,"Account created successfully, Please login")
             return redirect('login')
     return render(request,'BakersApp/signup.html',{'form':form})
@@ -62,9 +75,6 @@ def validate_password(raw_password,encrypted_password):
     else:
         response=None
     return response
-
-
-
 
 def homepage_view(request):
     return render(request,'BakersApp/homepage.html')
