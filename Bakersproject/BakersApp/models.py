@@ -27,12 +27,12 @@ class CategoryModel(models.Model):
         return self.category
     
 
-
 class ItemsModel(models.Model):
     itemName=models.CharField(max_length=40)
     price=models.IntegerField()
     category=models.ForeignKey(CategoryModel,on_delete=models.CASCADE)
     img=models.ImageField(upload_to='static/images/')
+
 
 
 
