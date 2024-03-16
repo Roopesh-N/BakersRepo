@@ -1,5 +1,5 @@
 from django.contrib import admin
-from BakersApp.models import UserModel
+from BakersApp.models import UserModel,CategoryModel,ItemsModel
 
 # Register your models here.
 class userModelAdmin(admin.ModelAdmin):
@@ -7,3 +7,18 @@ class userModelAdmin(admin.ModelAdmin):
     prepopulated_fields={'slug':('firstname','lastname')}
 
 admin.site.register(UserModel,userModelAdmin)
+
+#admin class for categoryModel
+class CategoryAdmin(admin.ModelAdmin):
+    list_display=['category']
+
+admin.site.register(CategoryModel,CategoryAdmin)
+
+#admin class for products
+class productsAdmin(admin.ModelAdmin):
+    list_display=['itemName','price','category','img']
+    
+admin.site.register(ItemsModel,productsAdmin)
+
+
+
