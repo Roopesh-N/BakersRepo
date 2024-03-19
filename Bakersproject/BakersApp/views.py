@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from BakersApp.forms import loginForm,signupForm
-from BakersApp.models import UserModel
+from BakersApp.models import UserModel,CategoryModel,ItemsModel
 from django.contrib import messages
 from django.shortcuts import HttpResponseRedirect,HttpResponse,redirect
 from django.urls import reverse
@@ -28,8 +28,8 @@ def LoginView(request):
                 if validated==False:
                     messages.error(request,"Incorrect password entered.Try again!")
                 else:
-                    # slug=user.slug
-                    return HttpResponseRedirect(reverse('homepage'))
+                    slug=user.slug
+                    return HttpResponseRedirect(reverse('homepage',args=[slug]))
             except ObjectDoesNotExist:
                 messages.error(request,"user doesn't exit. Try Entering correct username")
         
@@ -76,5 +76,10 @@ def validate_password(raw_password,encrypted_password):
         response=None
     return response
 
-def homepage_view(request):
-    return render(request,'BakersApp/homepage.html')
+def homepage_view(request,slug):
+    obj=UserModel.objects.get(slug=slug)
+    list_of_categories=CategoryModel.objects.all()
+    all_products=ItemsModel.objects.all()
+    return render(request,'BakersApp/homepage.html',{'obj':obj,'categories':list_of_categories,'all':all_products})
+
+
