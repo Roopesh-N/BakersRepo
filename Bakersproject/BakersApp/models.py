@@ -32,6 +32,10 @@ class ItemsModel(models.Model):
     price=models.IntegerField()
     category=models.ForeignKey(CategoryModel,on_delete=models.CASCADE)
     img=models.ImageField(upload_to='static/images/')
+    
+    @staticmethod
+    def get_all_products():
+        return ItemsModel.objects.all()
 
 
 

@@ -1,9 +1,81 @@
+{% load static %}
 <html lang="en">
 <head>
-<title>Document</title>
+    <title>Baker's Magic</title>
+     <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
 </head>
 <body>
-    <h1>Homepage</h1>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: lightblue;">
+        <a class="navbar-brand" href="/homepage/{{obj.slug}}"><img src="{% static "images/logo.png" %}"  width="50" height="50" alt="TodoList"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="/homepage/{{obj.slug}}">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+          </ul>
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Cart</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Support</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    {% block body_block %}
     
+    <div class="col-lg-3 mr-auto">
+        <div class="list-group">
+
+            <a href="#" class="list-group-item list-group-item-action btn btn-outline-success">All Products</a>
+
+            {% for category in categories %}
+            <a href="category={{category.id}}"
+                class="list-group-item list-group-item-action list-group-item-info">{{category.category}}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div id='products' class="col-lg-9 mx-auto">
+        {% for product in all %}
+        <div class="row ml-auto">
+            <div class="card ml-auto mb-3" id={{product.id}} style="width: 18rem;">
+                <img class="card-img-top" src="{{product.img.url}}" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-title">Name: <b>{{product.itemName}}</b></p>
+                    <p class="card-text">Price: <b>{{product.price}}</b></p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+                &nbsp;&nbsp;
+            {% endfor %}
+            </div>
+            </div>
+        </div>
+    </div>
+      
+    {% endblock %}
+
+    <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"></script>
+
 </body>
 </html>
