@@ -29,7 +29,7 @@ def LoginView(request):
                     messages.error(request,"Incorrect password entered.Try again!")
                 else:
                     slug=user.slug
-                    return HttpResponseRedirect(reverse('homepage',args=[slug]))
+                    return HttpResponseRedirect(reverse('homepage',args=[slug,'0']))
             except ObjectDoesNotExist:
                 messages.error(request,"user doesn't exit. Try Entering correct username")
         
@@ -76,10 +76,14 @@ def validate_password(raw_password,encrypted_password):
         response=None
     return response
 
-def homepage_view(request,slug):
+def homepage_view(request,slug,cid):
     obj=UserModel.objects.get(slug=slug)
     list_of_categories=CategoryModel.objects.all()
-    all_products=ItemsModel.objects.all()
+    if cid==0:
+        all_products=ItemsModel.objects.all()
+    else:
+        cat=CategoryModel.objects.get(id=int(cid))
+        all_products=ItemsModel.objects.filter(category=cat)
     return render(request,'BakersApp/homepage.html',{'obj':obj,'categories':list_of_categories,'all':all_products})
 
 
