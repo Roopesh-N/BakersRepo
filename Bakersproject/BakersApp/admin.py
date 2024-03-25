@@ -10,13 +10,13 @@ admin.site.register(UserModel,userModelAdmin)
 
 #admin class for categoryModel
 class CategoryAdmin(admin.ModelAdmin):
-    list_display=['category']
+    list_display=['id','category']
 
 admin.site.register(CategoryModel,CategoryAdmin)
 
 #admin class for products
 class productsAdmin(admin.ModelAdmin):
-    list_display=['itemName','price','category','img']
+    list_display=['id','itemName','price','category','img']
     
 admin.site.register(ItemsModel,productsAdmin)
 
