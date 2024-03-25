@@ -87,3 +87,8 @@ def homepage_view(request,slug,cid):
     return render(request,'BakersApp/homepage.html',{'obj':obj,'categories':list_of_categories,'all':all_products})
 
 
+def cart_view(request,slug):
+    obj=UserModel.objects.get(slug=slug)
+
+
+    return render(request, "BakersApp/cart.html",{'obj':obj})
