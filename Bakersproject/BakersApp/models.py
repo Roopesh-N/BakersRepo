@@ -37,6 +37,10 @@ class ItemsModel(models.Model):
     def get_all_products():
         return ItemsModel.objects.all()
     
+# class cart(models.Model):
+
+
+    
 
 
 
