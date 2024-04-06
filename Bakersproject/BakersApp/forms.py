@@ -1,9 +1,11 @@
 from typing import Any
 from django import forms
 from BakersApp.models import UserModel
+from captcha.fields import CaptchaField
 
 class loginForm(forms.ModelForm):
     password=forms.CharField(widget=forms.PasswordInput)
+    Captcha=CaptchaField()
     class Meta:
         model=UserModel
         fields=['Username','password']
